@@ -4,18 +4,21 @@
 
 package com.employee.motorphv4;
 
+import static com.employee.motorphv4.Utilities.formatDate;
+import static com.employee.motorphv4.Utilities.spacingInfo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
+
 /**
  *
  * @author Kenneth Lu
  */
 public class MotorPHv4 {
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
     //updated motorPH code //
     public static void main(String[] args) throws IOException, InterruptedException {
     // This is the code for the welcome to the MotorPH Payroll Portal //
@@ -26,16 +29,17 @@ public class MotorPHv4 {
         Thread.sleep(1500);
         gr.greets();
         Thread.sleep(1500);
-        System.out.println("=============================");
+        System.out.println("==================================");
         System.out.println("Please select from the menu..");
-        System.out.println("=============================");
-        System.out.println("1. Employee Information");
-        System.out.println("2. View Gross Earnings");
-        System.out.println("3. View Net Earnings");
+        System.out.println("==================================");
+        System.out.println("1. View Employees");
+        System.out.println("2. View Employee's Information");
+        System.out.println("3. View Employee's Gross Earnings");
+        System.out.println("4. View Employee's Net Earnings");
      
         // Creating an object for the scanner //
         Scanner opt = new Scanner(System.in);
-        System.out.println("=============================");
+        System.out.println("==================================");
         Thread.sleep(1500);
         // takes input from keyboard on the terminal //
         System.out.print("Enter your selection..: ");
@@ -52,12 +56,15 @@ public class MotorPHv4 {
         // Base on the input you entered or the number you entered in the terminal you will be transported to the its perspective class //
         switch (select) {
             case "1":
-                employeeInformation();
+                allEmployeeInfo();
                 break;
             case "2":
-                viewGrossEarnings();
+                employeeInformation();
                 break;
             case "3":
+                viewGrossEarnings();
+                break;
+            case "4":
                 viewNetEarnings();
                 break;
           // If inputted wrong information //
@@ -67,8 +74,37 @@ public class MotorPHv4 {
                 System.out.println("Exiting now......Goodbye");
                 break;
     }
-}    
-// This is the class you will go to when you inputted "1" as your choice //
+}   // This is the method you will go to when you inputted "1" as your choice //
+    // The allEmployeeInfo method when selected it will print all 34 employee's ID, First and Last Name, and Birthday of the employees // 
+    private static void allEmployeeInfo() throws IOException {
+
+        String str;
+      
+        // The BufferedReader and the FileReader is where the Scanner checks the Employee ID imputted if it matches the data from the txt file //
+        // Change the file address to where you downloaded and put the txt file // 4/4 //
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Kenneth Lu\\Documents\\NetBeansProjects\\MotorPHv4\\MotorPH Employee Datav4.txt"));
+        
+       // Print Headers //
+         str = br.readLine();
+        String[] values = str.split(",");
+           String empNumber = spacingInfo("[" + values[0] + "]",20);
+                String empName = spacingInfo("[" + values[2] + "]",20) + spacingInfo("[" + values[1] + "]",20);
+                String birthDate = spacingInfo("["+values[3]+ "]",20);
+                
+         System.out.println(empNumber + "" + empName + birthDate);
+         
+        // Prints all Employee's ID, Name, and Birthday from txt file// 
+        while ((str = br.readLine()) != null) {
+                values = str.split(",");
+                 empNumber =  spacingInfo(values[0],20);
+                 empName = spacingInfo("[" + values[2] + "]",20) + spacingInfo("[" + values[1] + "]",20);
+                 birthDate = spacingInfo(formatDate(values[3], "MMM dd, yyyy"),20);
+          
+                System.out.println(empNumber + empName + birthDate);
+        }
+    }
+    
+// This is the method you will go to when you inputted "2" as your choice //
 // The employeeInformation class is the one responsible of printing the Employee's Information by using the Employee's ID // 
 private static void employeeInformation() throws IOException {
         //Maximum of 3 attempts to input the Employee's ID //
@@ -85,7 +121,7 @@ private static void employeeInformation() throws IOException {
         if (attempts==MAX_ATTEMPTS) { System.out.println("You have reached the max attempt!"); break; }
         
         // The BufferedReader and the FileReader is where the Scanner checks the Employee ID imputted if it matches the data from the txt file //
-        // Change the file address to where you downloaded and put the txt file // 1/3 //
+        // Change the file address to where you downloaded and put the txt file // 1/4 //
         BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Kenneth Lu\\Documents\\NetBeansProjects\\MotorPHv4\\MotorPH Employee Datav4.txt"));
         
         // If employee ID has been found in the txt file it will print out the needed information of the employee //
@@ -93,17 +129,19 @@ private static void employeeInformation() throws IOException {
         while ((str = br.readLine()) != null) {
             if (str.contains(lookup)) { 
                 String[] values = str.split(",");
-                String empNum = values[0];
+                String empNumber = values[0];
                 String empName = values[2] + " " + values[1];
-                String birthDate = values[3];
+                String birthDate = formatDate(values[3], "MMM dd, yyyy");
+                String empPhoneNumber = values[5];
+             
                 String empPosition = values[11];
                 String empStatus = values[10];
-                String empAdrs = values[4];
+                String empAddress = values[4];
                 System.out.println("*=================*EMPLOYEE INFO*=================*");
-                System.out.println("Employee Number: " + empNum);
+                System.out.println("Employee Number: " + empNumber); System.out.println("Phone Number: " + empPhoneNumber);
                 System.out.print("Employee Name: " + empName); System.out.println("     " + "DOB: " +  birthDate); 
                 System.out.print("Position: " + empPosition); System.out.println("     " + "Status: " + empStatus);
-                System.out.println("Address: " + empAdrs);
+                System.out.println("Address: " + empAddress);
                 System.out.println("*=================*=============*=================*");
                 System.out.println("Thank you for using the MotorPH Payroll System!");
                 found = true;
@@ -116,7 +154,7 @@ private static void employeeInformation() throws IOException {
             }
         cont = !found; }
 }
-// This is the class you will go to when you inputted "2" as your choice //
+// This is the method you will go to when you inputted "3" as your choice //
 // The viewGrossEarning class is the one responsible of printing the Employee's Gross Earning based on their hourly rate // 
 private static void viewGrossEarnings() throws IOException {
         int MAX_ATTEMPTS = 3;
@@ -134,9 +172,9 @@ private static void viewGrossEarnings() throws IOException {
         // When you entered the Employee ID successfully you will need to input the Hours Worked of the Employee // 
         System.out.print("Enter Hours Worked: ");
         int hrs = scan.nextInt();
-        eGros.sethRate(hrs);
+        eGros.setHourlyRate(hrs);
         
-        // Change the file address to where you downloaded and put the txt file // 2/3 //
+        // Change the file address to where you downloaded and put the txt file // 2/4 //
         BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Kenneth Lu\\Documents\\NetBeansProjects\\MotorPHv4\\MotorPH Employee Datav4.txt"));
         
         // If employee ID has been found in the csv file and have inputed the hourly rate of the employee// 
@@ -146,28 +184,33 @@ private static void viewGrossEarnings() throws IOException {
         while ((str = br.readLine()) != null) {
             if (str.contains(lookup)) { 
                 String[] values = str.split(",");
-                String empNum = values[0];
+                String empNumber = values[0];
                 String empName = values[2] + " " + values[1];
-                String hrRate = values[18];
-                String riceSub = values[14];
+                String hourlyRate = values[18];
+                String riceSubsidy = values[14];
                 String clothAllowance = values[15];
                 String phoneAllowance = values[16];
-                System.out.println("*=================*EMPLOYEE GROSS EARNINGS*=================*");
-                System.out.println("Employee Number: " + empNum);
+                System.out.println("*==============*EMPLOYEE GROSS EARNINGS*==============*");
+                System.out.println("Employee Number: " + empNumber);
                 System.out.println("Employee Name: " + empName);
-                System.out.println("Hourly Rate: " +  hrRate);
+                System.out.println("Hourly Rate: " +  hourlyRate);
                 System.out.print("Gross Earnings: "); 
                 try{
-                double hours = Double.parseDouble(hrRate);
-                double grossRiceSub = Double.parseDouble(riceSub);
+                double hours = Double.parseDouble(hourlyRate);
+                double grossRiceSubsidy = Double.parseDouble(riceSubsidy);
                 double grossClothAllowance = Double.parseDouble(clothAllowance);
                 double grossPhoneAllowance = Double.parseDouble(phoneAllowance);
-                System.out.println(df.format(eGros.gethRate()*(hours)+(grossRiceSub)+(grossClothAllowance)+(grossPhoneAllowance)));
+                
+                // Calculate Gross Earnings //
+                String grossEarnings = decimalFormat.format(eGros.getHourlyRate()*(hours)+(grossRiceSubsidy)+(grossClothAllowance)+(grossPhoneAllowance));
+                
+                System.out.println(grossEarnings);
+                
                 }
                 catch (NumberFormatException ex) {
                 }
                 System.out.println("*=================*EMPLOYEE BENEFITS*=================*");
-                System.out.println("Rice Subsidy: " + riceSub);
+                System.out.println("Rice Subsidy: " + riceSubsidy);
                 System.out.println("Clothing Allowance: " + clothAllowance);
                 System.out.println("Phone Allowance: " + phoneAllowance);
                 System.out.println("==================*=================*==================");
@@ -182,7 +225,7 @@ private static void viewGrossEarnings() throws IOException {
         cont = !found; }
     }
 
-// This is the class you will go to when you inputted "3" as your choice //
+// This is the method you will go to when you inputted "4" as your choice //
 // The viewNetEarning class is the one responsible of printing the Employee's Net Earnings based on their hourly rate // 
 private static void viewNetEarnings() throws IOException {
         int MAX_ATTEMPTS = 3;
@@ -198,10 +241,10 @@ private static void viewNetEarnings() throws IOException {
         if (attempts==MAX_ATTEMPTS) { System.out.println("You have reached the max attempt!"); break; }
         System.out.print("Enter Hours Worked: ");
         int hrs = scan.nextInt();
-        eGros.sethRate(hrs);
+        eGros.setHourlyRate(hrs);
         
         
-        // Change the file address to where you downloaded and put the txt file // 3/3 //
+        // Change the file address to where you downloaded and put the txt file // 3/4 //
         BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Kenneth Lu\\Documents\\NetBeansProjects\\MotorPHv4\\MotorPH Employee Datav4.txt"));
         
         // If employee ID has been found in the txt file and have inputed the hourly rate of the employee// 
@@ -212,27 +255,32 @@ private static void viewNetEarnings() throws IOException {
         while ((str = br.readLine()) != null) {
             if (str.contains(lookup)) { 
                 String[] values = str.split(",");
-                String empNum = values[0];
+                String empNumber = values[0];
                 String empName = values[2] + " " + values[1];
-                String hrRate = values[18];
-                String riceSub = values[14];
+                String hourlyRate = values[18];
+                String riceSubsidy = values[14];
                 String clothAllowance = values[15];
                 String phoneAllowance = values[16];
                 String sss = values[25];
-                String phHlth = values[26];
-                String whTax = values[27];
+                String philHealth = values[26];
+                String withHoldingTax = values[27];
                 String pagibig = values[28];
                 System.out.println("*================*EMPLOYEE NET EARNINGS*================*");
-                System.out.println("Employee Number: " + empNum);
+                System.out.println("Employee Number: " + empNumber);
                 System.out.println("Employee Name: " + empName);
-                System.out.println("Hourly Rate: " +  hrRate);
+                System.out.println("Hourly Rate: " +  hourlyRate);
                 System.out.print("Gross Earnings: "); 
                 try{
-                double hours = Double.parseDouble(hrRate);
-                double netRiceSub = Double.parseDouble(riceSub);
+                double hours = Double.parseDouble(hourlyRate);
+                double netRiceSubsidy = Double.parseDouble(riceSubsidy);
                 double netClothAllowance = Double.parseDouble(clothAllowance);
                 double netPhoneAllowance = Double.parseDouble(phoneAllowance);
-                System.out.println(df.format(eGros.gethRate()*(hours)+(netRiceSub)+(netClothAllowance)+(netPhoneAllowance)));
+                
+                // Calculate Net Earnings //
+                String grossEarnings = decimalFormat.format(eGros.getHourlyRate()*(hours)+(netRiceSubsidy)+(netClothAllowance)+(netPhoneAllowance));
+                
+                System.out.println(grossEarnings);
+                
                 }
                 catch (NumberFormatException ex) {
                 }
@@ -240,23 +288,28 @@ private static void viewNetEarnings() throws IOException {
                 // This is where we calculate the deduction for the net earning and print out the employee deductions using the txt file// 
                 System.out.print("Net Earnings (After Deductions): ");
                 try{
-                double hours = Double.parseDouble(hrRate);
-                double netRiceSub = Double.parseDouble(riceSub);
+                double hours = Double.parseDouble(hourlyRate);
+                double netRiceSub = Double.parseDouble(riceSubsidy);
                 double netClothAllowance = Double.parseDouble(clothAllowance);
                 double netPhoneAllowance = Double.parseDouble(phoneAllowance);
-                double xsss = Double.parseDouble(sss);
-                double xphHlth = Double.parseDouble(phHlth);
-                double xwhTax = Double.parseDouble(whTax);
-                double xpagibig = Double.parseDouble(pagibig);
-                System.out.println(df.format(eGros.gethRate()*(hours)+(netRiceSub)+(netClothAllowance)+(netPhoneAllowance)-(xsss)-(xphHlth)-(xwhTax)-(xpagibig)));
+                double sssDeduction = Double.parseDouble(sss);
+                double philHealthDeduction = Double.parseDouble(philHealth);
+                double withHoldingTaxDeduction = Double.parseDouble(withHoldingTax);
+                double pagibigDeduction = Double.parseDouble(pagibig);
+                
+                // calculate deduction based on the employee's Gross Earnings //
+                String netEarnings = decimalFormat.format(eGros.getHourlyRate()*(hours)+(netRiceSub)+(netClothAllowance)+(netPhoneAllowance)-(sssDeduction)-(philHealthDeduction)-(withHoldingTaxDeduction)-(pagibigDeduction));
+                
+                System.out.println(netEarnings);
+                
                 }
                 catch (NumberFormatException ex) {
                 }
-                System.out.println("*================*EMPLOYEE DEDUCTIONS*================*");
+                System.out.println("*===============*EMPLOYEE DEDUCTIONS*================*");
                 System.out.println("SSS: " + sss);
-                System.out.println("PhilHealth: " + phHlth);
+                System.out.println("PhilHealth: " + philHealth);
                 System.out.println("Pag-Ibig: " + pagibig);
-                System.out.println("Witholding Tax: " + whTax);
+                System.out.println("Witholding Tax: " + withHoldingTax);
                 System.out.println("=================*===================*================-");
                 System.out.println("Thank you for using the MotorPH Payroll System!");
                 found = true;
@@ -268,7 +321,7 @@ private static void viewNetEarnings() throws IOException {
             }
         cont = !found; }
     }
-    
-        
-    
+
 }
+    
+

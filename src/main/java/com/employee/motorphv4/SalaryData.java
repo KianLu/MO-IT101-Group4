@@ -10,20 +10,20 @@ package com.employee.motorphv4;
  */
 public class SalaryData {
     
-    private double hRate;
-    private String eID;
+    private double hourlyRate;
+    private String employeeID;
     
-    public double gethRate() {
-        return hRate;  
+    public double getHourlyRate() {
+        return hourlyRate;  
     }
-    public void sethRate(double hRate) {
-        this.hRate = hRate;
+    public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
     }
-    public String geteID() {
-        return eID;
+    public String getemployeeID() {
+        return employeeID;
     }
-    public void seteID(String eID) {
-        this.eID = eID;
+    public void setemployeeID(String employeeID) {
+        this.employeeID = employeeID;
     }
     
 }
