@@ -33,7 +33,7 @@ public class MotorPHv4 {
         System.out.println("Please select from the menu..");
         System.out.println("==================================");
         System.out.println("1. View Employees");
-        System.out.println("2. View Employee's Information");
+        System.out.println("2. View Employee Details");
         System.out.println("3. View Employee's Gross Earnings");
         System.out.println("4. View Employee's Net Earnings");
      
@@ -56,10 +56,10 @@ public class MotorPHv4 {
         // Base on the input you entered or the number you entered in the terminal you will be transported to the its perspective class //
         switch (select) {
             case "1":
-                allEmployeeInfo();
+                employees();
                 break;
             case "2":
-                employeeInformation();
+                employeeDetails();
                 break;
             case "3":
                 viewGrossEarnings();
@@ -76,7 +76,7 @@ public class MotorPHv4 {
     }
 }   // This is the method you will go to when you inputted "1" as your choice //
     // The allEmployeeInfo method when selected it will print all 34 employee's ID, First and Last Name, and Birthday of the employees // 
-    private static void allEmployeeInfo() throws IOException {
+    private static void employees() throws IOException {
 
         String str;
       
@@ -106,7 +106,7 @@ public class MotorPHv4 {
     
 // This is the method you will go to when you inputted "2" as your choice //
 // The employeeInformation class is the one responsible of printing the Employee's Information by using the Employee's ID // 
-private static void employeeInformation() throws IOException {
+private static void employeeDetails() throws IOException {
         //Maximum of 3 attempts to input the Employee's ID //
         int MAX_ATTEMPTS = 3;
         int attempts = 0;
