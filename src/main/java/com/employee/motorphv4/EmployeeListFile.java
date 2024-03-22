@@ -15,6 +15,9 @@ import java.util.List;
  *
  * @author Kenneth Lu
  */
+//A class that takes employee data from an txt file and returns the list of employee through getEmployeeModelList
+
+
 public class EmployeeListFile extends EmployeeModel {
     
     public EmployeeListFile() throws FileNotFoundException, IOException{
@@ -34,7 +37,6 @@ public class EmployeeListFile extends EmployeeModel {
     
     public static  List<Employee> getEmployees(BufferedReader br) throws IOException
     {
-//       BufferedReader br = getEmployeeListFile();
        String str;
        List<Employee> employeeList = new ArrayList<>();
        
@@ -65,10 +67,7 @@ public class EmployeeListFile extends EmployeeModel {
              
         }
         
-      // employeeList = employeeList.stream().filter(emp -> emp.getClothingAllowance() == 1000 && emp.getPhoneAllowance() == 1000).toList();
-        
-     
-        
+                
         return employeeList;
     }
 }

@@ -11,8 +11,7 @@ import java.util.List;
  *
  * @author Kenneth Lu
  */
-//A class that manually holds employee data and returns the list
-// of employee thru getEmployeeModelList
+//A class that manually holds employee data and returns the list of employee through getEmployeeModelList
 
 public class EmployeeListClass extends EmployeeModel{
     

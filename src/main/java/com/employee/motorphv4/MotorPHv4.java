@@ -18,6 +18,7 @@ import java.util.Scanner;
  */
 public class MotorPHv4 {
    
+    //When the code first runs the default file the program is going to read is from the text file//
     private static int platform = 1;
     private static EmployeeModel employeeModel;
 
@@ -29,9 +30,11 @@ public class MotorPHv4 {
     
     private static void motorPHMenu() throws InterruptedException, IOException  {
          getDefaultEmployeeModel();
-          // This is the code for the welcome to the MotorPH Payroll Portal //
+         
+    // This is the code for the welcome to the MotorPH Payroll Portal //
     // Printing the text from object class Greetings.java and prints out the menu selection//
     //Thread.sleep is a java code that delays the output of the text to create a loading effect/illusion//
+    
         Greetings gr = new Greet2() {};
         gr.welcome();
         Thread.sleep(1500);
@@ -91,6 +94,10 @@ public class MotorPHv4 {
         }
     } 
     
+    // This is the method you will go to when you inputted "1" as your choice //
+    // the choosePlatform() when selected 1 on the motorph menu.// 
+    //this where you can switch which file the program will read from if its from the text file or from the class file//
+    
     private static void choosePlatform() throws IOException, InterruptedException {
         
         System.out.println("*=======================*Options*=======================*");
@@ -111,6 +118,7 @@ public class MotorPHv4 {
             default:
                 break;
         }
+        
                
         System.out.println("*=======================================================*");
         System.out.println("    You have chosen option: " + optionPlatform);
@@ -131,6 +139,8 @@ public class MotorPHv4 {
         inputPlatform.close();  
     }
     
+    
+    // This is where the program will switch based on the input you chose if its from a text file or a class file//
     private static void getDefaultEmployeeModel() throws IOException {
         if (platform == 1) {
             employeeModel = new EmployeeListFile();
@@ -146,7 +156,7 @@ public class MotorPHv4 {
     
     private static void employees() throws IOException {
 
-       // String str;
+       
         List<Employee> employeeList = employeeModel.getEmployeeModelList();
          System.out.println(spacingInfo("Employee ID",20) + spacingInfo("Last Name",20) + spacingInfo("First Name",20) + spacingInfo("Birthday",20));
         for(Employee employee : employeeList)
@@ -200,7 +210,7 @@ public class MotorPHv4 {
                 String empStatus = employee.getEmpStatus();
                 String empAddress = employee.getEmpAddress();
                  
-           System.out.println("*=================*EMPLOYEE INFO*=================*");
+                System.out.println("*=================*EMPLOYEE INFO*=================*");
                 System.out.print("Employee Number: " + empNumber); System.out.println("     " + "Phone Number: " + empPhoneNumber);
                 System.out.print("Employee Name: " + empName); System.out.println("     " + "DOB: " +  birthDate); 
                 System.out.print("Position: " + empPosition); System.out.println("     " + "Status: " + empStatus);
@@ -304,7 +314,7 @@ public class MotorPHv4 {
         int hrs = scan.nextInt();
         eGros.setHourlyRate(hrs);
         
-           List<Employee> employeeList = employeeModel.getEmployeeModelList();
+        List<Employee> employeeList = employeeModel.getEmployeeModelList();
         Employee employee =  employeeList.stream().filter(emp -> emp.getEmpNumber().equals(lookup)).findAny().orElse(null);
         boolean found = false;
         
