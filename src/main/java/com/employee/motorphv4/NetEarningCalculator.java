@@ -8,8 +8,10 @@ import java.text.DecimalFormat;
 
 /**
  *
- * @author Kenneth Lu
+ * @author Kenneth Lu 
  */
+// A class to calculate the employee's Net Earnings and Deductions
+
 public class NetEarningCalculator {
 
     private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");

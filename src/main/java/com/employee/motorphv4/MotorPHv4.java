@@ -40,7 +40,7 @@ public class MotorPHv4 {
         System.out.println("==================================");
         System.out.println("Please select from the menu..");
         System.out.println("==================================");
-        System.out.println("1.Employee Data to Read");
+        System.out.println("1. Employee Data to Read");
         System.out.println("2. View Employees");
         System.out.println("3. View Employee Details");
         System.out.println("4. View Employee's Gross Earnings");

@@ -11,6 +11,9 @@ import java.util.List;
  *
  * @author Kenneth Lu
  */
+//A class that manually holds employee data and returns the list
+// of employee thru getEmployeeModelList
+
 public class EmployeeListClass extends EmployeeModel{
     
        
@@ -19,6 +22,7 @@ public class EmployeeListClass extends EmployeeModel{
         
  
         employeeList= new ArrayList<>();
+        
         Employee employee1 = new Employee();
         
         employee1.setEmpNumber("1Garcia");

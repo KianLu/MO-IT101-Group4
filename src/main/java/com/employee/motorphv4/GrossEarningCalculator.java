@@ -10,6 +10,8 @@ import java.text.DecimalFormat;
  *
  * @author Kenneth Lu
  */
+// A class to calculate the employee's Gross Earnings and Benefits
+
 public class GrossEarningCalculator {
     
      private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
